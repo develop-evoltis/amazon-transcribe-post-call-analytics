@@ -21,7 +21,6 @@ import { range } from "../../util";
 import { Sentiment } from "../../components/Sentiment";
 import { ChatInput } from "../../components/ChatInput";
 import { Button, ContentLayout, Spinner, Link, Header, Grid, Container, SpaceBetween, Input, FormField, TextContent } from '@cloudscape-design/components';
-import { useTranslation } from 'react-i18next';
 
 const getSentimentTrends = (d, target, labels) => {
   const id = Object.entries(labels).find(([_, v]) => v === target)?.[0];
@@ -58,8 +57,6 @@ function Dashboard({ setAlert }) {
   const { mutate } = useSWRConfig();
   const audioElem = useRef();
   const transcriptElem = useRef();
-
-  const { t } = useTranslation();
 
   const { data, error } = useSWR(`/get/${key}`, () => get(key), {
     revalidateIfStale: true,
@@ -300,21 +297,21 @@ function Dashboard({ setAlert }) {
 
   const callDetailColumn = [
     {
-      label: t("contactTable.timestamp"),
+      label: "Timestamp",
       value: (d) => d?.ConversationAnalytics?.ConversationTime.substring(0, 19),
     },
     { label: "Guid", value: (d) => d?.ConversationAnalytics?.GUID },
-    { label: t("contactTable.agent"), value: (d) => d?.ConversationAnalytics?.Agent },
+    { label: "Agent", value: (d) => d?.ConversationAnalytics?.Agent },
     {
-      label: t("contactTable.callDuration"),
+      label: "Call Duration",
       value: (d) => Formatter.Time(d.ConversationAnalytics.Duration),
     },
     {
-      label: t("contactTable.entityRecognizer"),
+      label: "Entity Recognizer Name",
       value: (d) => d?.ConversationAnalytics?.EntityRecognizerName,
     },
     {
-      label: t("contactTable.language"),
+      label: "Language Model",
       value: (d) =>
           usedCustomLanguageModel
             ? d?.ConversationAnalytics?.LanguageCode + " [" +
@@ -322,7 +319,7 @@ function Dashboard({ setAlert }) {
             : d?.ConversationAnalytics?.LanguageCode
     },
     {
-      label: t("contactTable.agentSentiment"),
+      label: "Agent Sentiment",
       value: (d) => (
         <Sentiment
           score={getSentimentTrends(d, "Agent", speakerLabels)?.SentimentScore}
@@ -331,7 +328,7 @@ function Dashboard({ setAlert }) {
       ),
     },
     {
-      label: t("contactTable.customerSentiment"),
+      label: "Customer Sentiment",
       value: (d) => (
         <Sentiment
           score={
@@ -347,7 +344,7 @@ function Dashboard({ setAlert }) {
 
   const transcribeDetailColumn = [
     {
-      label: t("transcribeDetail.type"),
+      label: "Type",
       value: (d) =>
         isTranscribeCallAnalyticsMode
           ? hasTranscribeStreamingSession
@@ -358,7 +355,7 @@ function Dashboard({ setAlert }) {
             : "Transcribe"
     },
     {
-      label: t("transcribeDetail.jobId"),
+      label: "Job Id",
       value: (d) => (
         <div key='jobIdKey' className="text-break">
           {
@@ -369,39 +366,39 @@ function Dashboard({ setAlert }) {
       ),
     },
     {
-      label: t("transcribeDetail.fileFormat"),
+      label: "File Format",
       value: (d) =>
         d?.ConversationAnalytics?.SourceInformation[0]?.TranscribeJobInfo
           ?.MediaFormat,
     },
     {
-      label: t("transcribeDetail.sampleRate"),
+      label: "Sample Rate",
       value: (d) =>
         d?.ConversationAnalytics?.SourceInformation[0]?.TranscribeJobInfo
           ?.MediaSampleRateHertz,
     },
     {
-      label: t("transcribeDetail.piiRedaction"),
+      label: "PII Redaction",
       value: (d) =>
         d?.ConversationAnalytics?.SourceInformation[0]?.TranscribeJobInfo
           ?.RedactedTranscript === true
-          ? t("enabled")
-          : t("disabled"),
+          ? "Enabled"
+          : "Disabled"
     },
     {
-      label: t("transcribeDetail.vocabulary"),
+      label: "Custom Vocabulary",
       value: (d) =>
         d?.ConversationAnalytics?.SourceInformation[0]?.TranscribeJobInfo
           ?.VocabularyName,
     },
     {
-      label: t("transcribeDetail.vocabularyFilter"),
+      label: "Vocabulary Filter",
       value: (d) =>
         d.ConversationAnalytics.SourceInformation[0]?.TranscribeJobInfo
           ?.VocabularyFilter,
     },
     {
-      label: t("transcribeDetail.averageConfidence"),
+      label: "Average Word Confidence",
       value: (d) =>
         Formatter.Percentage(
           d.ConversationAnalytics.SourceInformation[0]?.TranscribeJobInfo
@@ -498,6 +495,7 @@ function Dashboard({ setAlert }) {
   }
 
   
+
   return (
     <ContentLayout 
     header={
@@ -505,11 +503,11 @@ function Dashboard({ setAlert }) {
           variant="h2"
           actions={[
             <Button key='swapAgent' onClick={swapAgent} disabled={isSwapping} className="float-end">
-              {isSwapping ? t("swapping") : t("swapAgent")}
+              {isSwapping ? "Swapping..." : "Swap Agent/Caller"}
             </Button>
           ]}
       >
-        {t("callDetail")}
+        Call Details
       </Header>
     }>
     <Grid
@@ -564,7 +562,7 @@ function Dashboard({ setAlert }) {
           fitHeight={true}
           header={
             <Header variant="h2">
-              {t("callMetadata")}
+              Call Metadata
             </Header>
           }
         >
@@ -584,7 +582,7 @@ function Dashboard({ setAlert }) {
           fitHeight={true}
           header={
             <Header variant="h2">
-              {t("transcribeDetail.title")}
+              Transcribe Details
             </Header>
           }
         >
@@ -603,14 +601,14 @@ function Dashboard({ setAlert }) {
         <Container
           header={
             <Header variant="h2">
-              {t("sentiment")}
+              Sentiment
             </Header>
           }>
             <SentimentChart
               data={data?.ConversationAnalytics?.SentimentTrends}
               speakerOrder={speakerLabels}
             />
-            <Header variant="h2">{t("speakerTime")}</Header>
+            <Header variant="h2">Speaker Time</Header>
             <SpeakerTimeChart
               data={Object.entries(
                 data?.ConversationAnalytics?.SpeakerTime || {}
@@ -641,7 +639,7 @@ function Dashboard({ setAlert }) {
           <Container
             header={
               <Header variant="h2">
-                {t("comprehendSentiment")}
+                Comprehend Sentiment
               </Header>
             }
           >
@@ -656,7 +654,7 @@ function Dashboard({ setAlert }) {
           fitHeight={true}
           header={
             <Header variant="h2">
-              {t("entities")}
+              Entities
             </Header>
           }
         >
@@ -696,7 +694,7 @@ function Dashboard({ setAlert }) {
                 </SpaceBetween>
               }
             >
-              {t("genaiInsights")}
+              Generative AI Insights
             </Header>
           }
 
@@ -715,7 +713,7 @@ function Dashboard({ setAlert }) {
             fitHeight={false}
             header={
               <Header variant="h2">
-                {t("genaiQuery")}
+                Generative AI Query
               </Header>
             }
             /* For future use. :) */
@@ -729,7 +727,7 @@ function Dashboard({ setAlert }) {
                   <ValueWithLabel key={i} index={i} label={entry.label}>
                       {entry.value === '...' ? <div style={{height:'30px'}}><Spinner/></div> : entry.value}
                     </ValueWithLabel>
-                )) : <ValueWithLabel key='nosummary'>{t("question")}</ValueWithLabel>}
+                )) : <ValueWithLabel key='nosummary'>Ask a question below.</ValueWithLabel>}
               </SpaceBetween>
             </div>
           </Container>
@@ -740,7 +738,7 @@ function Dashboard({ setAlert }) {
             fitHeight={false}
             header={
                 <Header variant="h2">
-                  {t("callSummary")}
+                  Call Analytics Summary
                 </Header>
             }
             
@@ -792,7 +790,7 @@ function Dashboard({ setAlert }) {
                 </SpaceBetween>
               }
             >
-              {t("transcript")}
+              Transcript
             </Header>
         }>
           <div ref={transcriptElem}>
