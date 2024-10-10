@@ -84,7 +84,7 @@ function Navigation({ userName, email }) {
       <TopNavigation
         identity={{
           href: "/",
-          title: "Amazon Transcribe Post-Call Analytics",
+          title: t('headerTitle'),
           iconName: "settings"
         }}
         i18nStrings={{
