@@ -15,12 +15,8 @@
     "headerTitle": "Análisis de post llamadas",
     "utilities": {
         "search": "Buscar",
-        "blogPost": "Publicación del Blog PCA",
         "user": "Usuario",
         "email": "Correo electrónico",
-        "support": "Soporte",
-        "documentation": "GitHub/Readme",
-        "feedback": "Publicación del Blog",
         "signout": "Cerrar sesión",
         "language": "Idioma",
         "language_en": "Inglés",
