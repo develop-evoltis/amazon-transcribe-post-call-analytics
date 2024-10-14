@@ -12,7 +12,7 @@
     "disabled": "Disabled",
     "submit": "Submit",
     "chatInputPlaceholder": "Enter a question about the call.",
-    "headerTitle": "Amazon Transcribe Post-Call Analytics",
+    "headerTitle": "Post Call Analytics",
     "utilities": {
         "search": "Search",
         "blogPost": "PCA Blog Post",

@@ -84,7 +84,16 @@ function Navigation({ userName, email }) {
       <TopNavigation
         identity={{
           href: "/",
-          title: t('headerTitle'),
+          title: (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                style={{ height: '20px', marginRight: '10px' }} 
+              />
+              {t('headerTitle')}
+            </div>
+          ),
           iconName: "settings"
         }}
         i18nStrings={{
