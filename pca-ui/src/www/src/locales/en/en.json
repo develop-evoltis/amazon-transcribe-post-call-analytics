@@ -12,15 +12,11 @@
     "disabled": "Disabled",
     "submit": "Submit",
     "chatInputPlaceholder": "Enter a question about the call.",
-    "headerTitle": "Amazon Transcribe Post-Call Analytics",
+    "headerTitle": "Post Call Analytics",
     "utilities": {
         "search": "Search",
-        "blogPost": "PCA Blog Post",
         "user": "User",
         "email": "Email",
-        "support": "Support",
-        "documentation": "GitHub/Readme",
-        "feedback": "Blog Post",
         "signout": "Sign out",
         "language": "Language",
         "language_en": "English",
@@ -103,8 +99,7 @@
         "entityRecognizer": "Entity Recognizer Name",
         "language": "Language Model",
         "agentSentiment": "Agent Sentiment",
-        "customerSentiment": "Customer Sentiment",
-        "callSummary": "Call Summary"
+        "customerSentiment": "Customer Sentiment"
     },
     "transcribeDetail": {
         "title": "Transcribe Details",
