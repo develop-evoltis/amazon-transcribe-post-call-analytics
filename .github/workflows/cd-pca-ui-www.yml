@@ -49,4 +49,4 @@ jobs:
         run: aws s3 sync ./pca-ui/src/www/build s3://${{ secrets.AWS_BUCKET_NAME }} --delete --exclude "config.js"
 
       - name: Create Cloudfront invalidation
-        run: aws cloudfront create-invalidation --distribution-id E1OX5G50U6BOKZ --paths "/index.html"
+        run: aws cloudfront create-invalidation --distribution-id EJO9SDT3WF3I8 --paths "/index.html"
