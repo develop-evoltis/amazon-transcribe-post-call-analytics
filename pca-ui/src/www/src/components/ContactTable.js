@@ -196,11 +196,21 @@ const useTranslatedColumnDefinitions = () => {
                 renderWithPortal={true}
                 className="custom-popover"
               >
-                {(d.summary_summary.length > 20 ? d.summary_summary.substring(0, 20) + "..." : d.summary_summary)}
-              </Popover>
+                  <span className="truncated-text">
+                    {d.summary_summary.length > 20 
+                      ? d.summary_summary.substring(0, 20) + "..." 
+                      : d.summary_summary}
+                  </span>              </Popover>
             )
           }
-          return 'n/a';
+          return <div style={{
+            fontFamily: 'Helvetica',
+            fontSize: '14px',
+            fontWeight: 400,
+            lineHeight: '22px',
+            textAlign: 'left',
+            color: '#000000'
+          }}>n/a</div>;
         }
       : column.cell
   }));
